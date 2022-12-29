@@ -1,36 +1,55 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { BiUser } from "react-icons/bi";
 import { RiLockLine } from "react-icons/ri";
 import { FcGoogle } from "react-icons/fc";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import Link from 'next/link';
+import { AuthContext } from '../context/authProvider';
+import { useRouter } from 'next/router';
 
 const Register = () => {
     const [showPass, setShowPass] = useState(false);
+    const { createUser } = useContext(AuthContext);
+    const router = useRouter();
+
+    const handleCreateUser = (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+
+        createUser(email, password)
+            .then(result => {
+                console.log(result.user);
+                router.push('/myTask');
+            })
+            .catch(e => console.log(error))
+    }
 
     return (
-        <div className="bg-[url('../public/img/5559852.jpg')] h-[100vh] bg-no-repeat bg-center bg-cover flex justify-center items-center text-slate-800">
+        <div className="flex justify-center items-center text-slate-800">
             <div className='border w-[400px] p-10 bg-white rounded-3xl'>
                 <h1 className='text-4xl font-bold mb-8 text-center'>Register</h1>
-                <form className='space-y-8'>
+                <form onSubmit={handleCreateUser} className='space-y-8'>
                     <div className="input-field">
                         <div className='flex items-center border-b-2 border-b-slate-500 p-1'>
                             <span className='mr-5 text-xl'><BiUser /></span>
-                            <input className='w-full border-none focus:outline-none bg-transparent' type="text" placeholder='User Name' />
+                            <input className='w-full border-none focus:outline-none bg-transparent' type="text" placeholder='User Name' name='name' required />
                         </div>
                     </div>
                     <div className="input-field">
                         <div className='flex items-center border-b-2 border-b-slate-500 p-1'>
                             <span className='mr-5 text-xl'><HiOutlineMail /></span>
-                            <input className='w-full border-none focus:outline-none bg-transparent' type="email" placeholder='User Email' />
+                            <input className='w-full border-none focus:outline-none bg-transparent' type="email" placeholder='User Email' name='email' required />
                         </div>
                     </div>
                     <div className="input-field">
                         <div className='flex items-center border-b-2 border-b-slate-500 p-1'>
                             <span className='mr-5 text-xl'><RiLockLine /></span>
                             <div className='w-full flex items-center'>
-                                <input className='w-full border-none focus:outline-none bg-transparent' type={showPass ? "text" : "password"} placeholder='User Password' />
+                                <input className='w-full border-none focus:outline-none bg-transparent' type={showPass ? "text" : "password"} placeholder='User Password' name='password' required />
                                 <span className='ml-4 text-lg'>{showPass ? <FaRegEye onClick={() => setShowPass(!showPass)} /> : <FaRegEyeSlash onClick={() => setShowPass(!showPass)} />}</span>
                             </div>
                         </div>

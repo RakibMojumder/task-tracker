@@ -1,5 +1,6 @@
 import React from 'react';
 import { IoIosAddCircleOutline } from "react-icons/io";
+import { toast, ToastContainer } from 'react-nextjs-toast'
 
 const AddTask = () => {
 
@@ -11,7 +12,7 @@ const AddTask = () => {
         const taskImg = e.target.taskImg.files[0];
         formData.append("image", taskImg);
 
-        fetch(`https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`, {
+        fetch(`https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_imgbb_api_Key}`, {
             method: "POST",
             body: formData
         })
@@ -33,6 +34,7 @@ const AddTask = () => {
                     })
                         .then(res => res.json())
                         .then(data => {
+                            toast.notify("Task added")
                             console.log(data);
                         })
                 }
@@ -78,6 +80,7 @@ const AddTask = () => {
                     <button className='w-full py-2 text-white font-semibold rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 uppercase hover:bg-gradient-to-l' type='submit'>Submit</button>
                 </form>
             </div>
+            <ToastContainer />
         </div>
     );
 };

@@ -9,7 +9,7 @@ const Login = () => {
     const [showPass, setShowPass] = useState(false);
 
     return (
-        <div className="bg-[url('../public/img/5559852.jpg')] h-[100vh] bg-no-repeat bg-center bg-cover flex justify-center items-center text-slate-800">
+        <div className="flex justify-center items-center text-slate-800">
             <div className='border w-[400px] p-10 bg-white rounded-2xl'>
                 <h1 className='text-4xl font-bold mb-8 text-center'>Login</h1>
                 <form className='space-y-8'>

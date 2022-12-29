@@ -1,8 +1,14 @@
 import Head from 'next/head';
+import { useContext } from 'react';
+import { AuthContext } from '../context/authProvider';
 import Login from './login';
+import MyTask from './myTask';
+import { ToastContainer } from 'react-nextjs-toast'
 
 
 export default function Home() {
+  const { user } = useContext(AuthContext);
+
   return (
     <>
       <Head>
@@ -12,9 +18,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>Hello</h1>
+        {user ? <MyTask /> : <Login />}
       </main>
-      {/* <Login /> */}
+      <ToastContainer position="top-center" />
     </>
   )
 }

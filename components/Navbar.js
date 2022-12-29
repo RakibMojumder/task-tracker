@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 // import Image from 'next/image';
 import Link from 'next/link';
+import { AuthContext } from '../context/authProvider';
+import { useRouter } from 'next/router';
 
 const Navbar = () => {
+    const { logOut } = useContext(AuthContext);
+    const router = useRouter();
+
+    const handleLogOut = () => {
+        logOut()
+            .then(res => router.push('/login'))
+            .catch(e => console.log(e))
+    }
+
     return (
         <div>
-            <header className="flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-white text-sm py-4">
+            <header className="flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-white text-sm py-4 mb-14">
                 <nav className="max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between" aria-label="Global">
                     <div className="flex items-center justify-between">
                         <a className="flex-none" href="#">
@@ -23,11 +34,11 @@ const Navbar = () => {
                         </div>
                     </div>
                     <div id="navbar-image-2" className="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:block">
-                        <div className="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:pl-5">
+                        <div className="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:pl-5 font-semibold uppercase">
                             <Link href='/addTask'>Add Task</Link>
                             <Link href='/myTask'>My Task</Link>
                             <Link href='/'>Completed Task</Link>
-                            <Link href='/'>Log out</Link>
+                            <button className='uppercase' onClick={handleLogOut}>Log out</button>
                         </div>
                     </div>
                 </nav>
