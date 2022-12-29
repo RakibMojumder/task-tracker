@@ -1,10 +1,9 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
-import TaskEditModal from '../components/taskEditModal';
 
 const MyTask = ({ tasks }) => {
-    const [showModal, setShowModal] = useState(false);
+    // const [showModal, setShowModal] = useState(false);
 
     const handleDeleteTask = (id) => {
         fetch(`http://localhost:3000/api/task?taskId=${id}`,
@@ -14,13 +13,13 @@ const MyTask = ({ tasks }) => {
     };
 
 
-    const handleUpdateTask = (id) => {
-        fetch(`http://localhost:3000/api/task?taskId=${id}`, {
-            method: "PATCH"
-        })
-            .then(res => res.json())
-            .then(data => console.log(data))
-    }
+    // const handleUpdateTask = (id) => {
+    //     fetch(`http://localhost:3000/api/task?taskId=${id}`, {
+    //         method: "PATCH"
+    //     })
+    //         .then(res => res.json())
+    //         .then(data => console.log(data))
+    // }
 
     return (
         <div>
@@ -74,7 +73,7 @@ const MyTask = ({ tasks }) => {
                                     {task?.taskTitle}
                                 </td>
                                 <td className="whitespace-nowrap px-4 py-2 text-gray-700 text-center text-xl"><FaRegTrashAlt onClick={() => handleDeleteTask(task._id)} className='inline-block' /></td>
-                                <td className="whitespace-nowrap px-4 py-2 text-gray-700 text-center text-xl"><FaRegEdit onClick={() => setShowModal(true)} className='inline-block' /></td>
+                                <td className="whitespace-nowrap px-4 py-2 text-gray-700 text-center text-xl"><FaRegEdit className='inline-block' /></td>
                                 <td className="whitespace-nowrap px-4 py-2 text-gray-700 text-center"><button className={`${task?.completed ? "bg-green-100 text-green-500" : "bg-red-100 text-red-500"} py-0.5 px-3`}>{task?.completed ? "Completed" : "Not Completed"}</button></td>
                             </tr>)
                         }
@@ -82,9 +81,6 @@ const MyTask = ({ tasks }) => {
                     </tbody>
                 </table>
             </div>
-            {/* {
-                showModal && <TaskEditModal />
-            } */}
         </div>
     );
 };
