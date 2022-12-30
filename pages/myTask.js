@@ -88,7 +88,7 @@ const MyTask = ({ tasks }) => {
 export default MyTask;
 
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
     const res = await fetch('http://localhost:3000/api/task');
     const data = await res.json();
 
