@@ -25,7 +25,7 @@ const AddTask = () => {
                         taskImg: data.data.url,
                     }
 
-                    fetch('http://localhost:3000/api/task', {
+                    fetch('https://task-tracker-rakibmojumder.vercel.app', {
                         method: "POST",
                         headers: {
                             "content-type": "application/json"
